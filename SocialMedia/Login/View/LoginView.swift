@@ -139,6 +139,10 @@ struct LoginView: View {
     }
 }
 
+#Preview {
+    LoginView()
+}
+
 extension View {
     
     func hAlign(_ alignment: Alignment) -> some View {

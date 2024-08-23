@@ -34,7 +34,7 @@ struct RegisterView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            Text("Lets Register\nAccount")
+            Text("Lets Register an\nAccount")
                 .font(.largeTitle.bold())
                 .hAlign(.leading)
             

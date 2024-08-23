@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8869A3C92C7900FC00CD0451 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8869A3C82C7900FC00CD0451 /* Localizable.xcstrings */; };
 		88C5F8592C75456F006D3DFB /* SocialMediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C5F8582C75456F006D3DFB /* SocialMediaApp.swift */; };
 		88C5F85B2C75456F006D3DFB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C5F85A2C75456F006D3DFB /* ContentView.swift */; };
 		88C5F85D2C754571006D3DFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88C5F85C2C754571006D3DFB /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8869A3C82C7900FC00CD0451 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		88C5F8552C75456F006D3DFB /* SocialMedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialMedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88C5F8582C75456F006D3DFB /* SocialMediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaApp.swift; sourceTree = "<group>"; };
 		88C5F85A2C75456F006D3DFB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 		8869A3C72C78DF5900CD0451 /* Localizable */ = {
 			isa = PBXGroup;
 			children = (
+				8869A3C82C7900FC00CD0451 /* Localizable.xcstrings */,
 			);
 			path = Localizable;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 88C5F84C2C75456F006D3DFB;
 			packageReferences = (
@@ -238,6 +242,7 @@
 			files = (
 				88C5F8612C754571006D3DFB /* Preview Assets.xcassets in Resources */,
 				88C5F85D2C754571006D3DFB /* Assets.xcassets in Resources */,
+				8869A3C92C7900FC00CD0451 /* Localizable.xcstrings in Resources */,
 				88D6A0FB2C769CC70060C99F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
