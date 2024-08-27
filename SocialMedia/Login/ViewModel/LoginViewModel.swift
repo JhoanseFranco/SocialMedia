@@ -77,4 +77,12 @@ extension LoginViewModel: FirebaseServiceDelegate {
         
         shouldShowError.toggle()
     }
+    
+    func didCreateUser(userUID: String, userProfileURL: URL) {
+        // No-op
+    }
+    
+    func didFailCreatingUser(message: String) {
+        // No-op
+    }
 }

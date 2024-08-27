@@ -6,12 +6,10 @@
 //
 
 import SwiftUI
-import FirebaseAuth
-import FirebaseFirestore
 
 struct LoginView: View {
     
-    @StateObject var viewModel = LoginViewModel()
+    @StateObject private var viewModel = LoginViewModel()
     
     var body: some View {
         VStack(spacing: 10) {

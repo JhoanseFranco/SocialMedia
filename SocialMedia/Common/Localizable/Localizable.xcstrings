@@ -101,6 +101,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Password" : {
       "localizations" : {
         "es" : {

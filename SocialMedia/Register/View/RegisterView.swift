@@ -7,30 +7,12 @@
 
 import SwiftUI
 import PhotosUI
-import FirebaseAuth
-import FirebaseStorage
-import FirebaseFirestore
 
 struct RegisterView: View {
     
-    @State var userName: String = ""
-    @State var emailId: String = ""
-    @State var password: String = ""
-    @State var userBio: String = ""
-    @State var userBioLink: String = ""
-    @State var userProfilePicData: Data?
-    @State var showImagePicker: Bool = false
-    @State var photoItem: PhotosPickerItem?
-    @State var showError: Bool = false
-    @State var errorMessage: String = ""
-    @State var shoulShowLoading: Bool = false
+    @StateObject private var viewModel = RegisterViewModel()
     
     @Environment(\.dismiss) var dismiss
-    
-    @AppStorage("log_status") var logStatus: Bool = false
-    @AppStorage("user_profile_url") var userProfileURL: URL?
-    @AppStorage("usernameStored") var usernameStored: String = ""
-    @AppStorage("user_UID") var userUID: String = ""
     
     var body: some View {
         VStack(spacing: 10) {
@@ -44,10 +26,10 @@ struct RegisterView: View {
             
             ViewThatFits {
                 ScrollView(.vertical, showsIndicators: false) {
-                    HelperView()
+                    RegisterFormView()
                 }
                 
-                HelperView()
+                RegisterFormView()
             }
             
             HStack {
@@ -66,41 +48,31 @@ struct RegisterView: View {
         .vAlign(.top)
         .padding(15)
         .overlay(content: {
-            LoadingView(shouldShowLoading: $shoulShowLoading)
+            LoadingView(shouldShowLoading: $viewModel.shouldShowLoading)
         })
-        .photosPicker(isPresented: $showImagePicker, selection: $photoItem)
-        .onChange(of: photoItem) { _, newValue in
+        .photosPicker(isPresented: $viewModel.shouldShowImagePicker, selection: $viewModel.photoItem)
+        .onChange(of: viewModel.photoItem) { _, newValue in
             
             // MARK: Extracting UIImage from photoItem
             
             if let newValue {
-                Task {
-                    do {
-                        guard let imageData = try await newValue.loadTransferable(type: Data.self) else {
-                            print ("Fail extracting Image from photoItem")
-                            
-                            return
-                        }
-                        
-                        await MainActor.run {
-                            userProfilePicData = imageData
-                        }
-                    } catch {
-                        print ("Fail extracting Image from photoItem")
-                    }
-                }
+                viewModel.extractImageFromPhotoItem(newValue)
             }
         }
-        .alert(errorMessage, isPresented: $showError) {
-            
+        .alert(viewModel.alertMessage, isPresented: $viewModel.shouldShowAlert) {
+            if viewModel.alertMessage == "User created successfully!" {
+                Button("OK") {
+                    viewModel.logStatus = true
+                }
+            }
         }
     }
     
     @ViewBuilder
-    func HelperView() -> some View {
+    func RegisterFormView() -> some View {
         VStack(spacing: 12) {
             ZStack {
-                if let userProfilePicData,
+                if let userProfilePicData = viewModel.userProfilePicData,
                    let image = UIImage(data: userProfilePicData) {
                     Image(uiImage: image)
                         .resizable()
@@ -117,32 +89,33 @@ struct RegisterView: View {
             .contentShape(Circle())
             .padding(.top, 25)
             .onTapGesture {
-                showImagePicker.toggle()
+                viewModel.shouldShowImagePicker.toggle()
             }
             
-            TextField("User name", text: $userName)
+            TextField("User name", text: $viewModel.username)
                 .border(1, .gray.opacity(0.5))
                 .padding(.top, 25)
             
-            TextField("Email", text: $emailId)
+            TextField("Email", text: $viewModel.email)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
             
-            TextField("About You", text: $userBio, axis: .vertical)
+            TextField("About You", text: $viewModel.userBio, axis: .vertical)
                 .frame(minHeight: 100, alignment: .top)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
             
-            TextField("Bio link (Optional)", text: $userBioLink)
+            TextField("Bio link (Optional)", text: $viewModel.userBioLink)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
             
-            SecureField("Password", text: $password)
+            SecureField("Password", text: $viewModel.password)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
             
             Button {
-                register()
+                closeKeyboard()
+                viewModel.register()
             } label: {
                 Text("Sing in")
                     .foregroundStyle(.white)
@@ -150,70 +123,8 @@ struct RegisterView: View {
                     .fillView(color: .black)
             }
             .padding(.top, 10)
-            .disableWithOpacity(isFormValid())
+            .disableWithOpacity(viewModel.isFormValid())
         }
-    }
-    
-    func register() {
-        closeKeyboard()
-        
-        shoulShowLoading = true
-        
-        Task {
-            do {
-                try await Auth.auth().createUser(withEmail: emailId, password: password)
-                
-                guard let userUID = Auth.auth().currentUser?.uid,
-                      let imageData = userProfilePicData else { return }
-                
-                let storageRef = Storage.storage().reference().child("Profile_Images").child(userUID)
-                
-                let _ = try await storageRef.putDataAsync(imageData)
-                
-                let downloadURL = try await storageRef.downloadURL()
-                
-                let user = User(username: userName,
-                                userBio: userBio,
-                                userBioLink: userBioLink,
-                                userUID: userUID,
-                                userEmail: emailId,
-                                profileImageURL: downloadURL)
-                
-                let _ = try Firestore.firestore().collection("Users").document(userUID).setData(from: user) { error in
-                    if error == nil {
-                        print("user saved")
-                        shoulShowLoading = false
-                        
-                        usernameStored = userName
-                        self.userUID = userUID
-                        userProfileURL = downloadURL
-                        logStatus = true
-                    }
-                }
-                
-            } catch {
-                await setError(error)
-            }
-        }
-    }
-    
-    func setError(_ error: Error) async {
-        shoulShowLoading = false
-        
-        await MainActor.run {
-            errorMessage = error.localizedDescription
-            
-            showError.toggle()
-        }
-    }
-    
-    func isFormValid() -> Bool {
-        
-        userName.isEmpty ||
-        emailId.isEmpty ||
-        password.isEmpty ||
-        userBio.isEmpty ||
-        userProfilePicData == nil
     }
 }
 
