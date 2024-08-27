@@ -17,5 +17,5 @@ struct User: Codable {
     var userBioLink: String
     var userUID: String
     var userEmail: String
-    var userProfileURL: URL
+    var profileImageURL: URL
 }

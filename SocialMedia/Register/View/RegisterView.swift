@@ -177,7 +177,7 @@ struct RegisterView: View {
                                 userBioLink: userBioLink,
                                 userUID: userUID,
                                 userEmail: emailId,
-                                userProfileURL: downloadURL)
+                                profileImageURL: downloadURL)
                 
                 let _ = try Firestore.firestore().collection("Users").document(userUID).setData(from: user) { error in
                     if error == nil {

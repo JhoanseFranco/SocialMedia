@@ -11,17 +11,7 @@ import FirebaseFirestore
 
 struct LoginView: View {
     
-    @State var emailId: String = ""
-    @State var password: String = ""
-    @State var createAccount: Bool = false
-    @State var showError: Bool = false
-    @State var errorMessage: String = ""
-    @State var shoulShowLoading: Bool = false
-    
-    @AppStorage("log_status") var logStatus: Bool = false
-    @AppStorage("user_profile_url") var userProfileURL: URL?
-    @AppStorage("usernameStored") var usernameStored: String = ""
-    @AppStorage("user_UID") var userUID: String = ""
+    @StateObject var viewModel = LoginViewModel()
     
     var body: some View {
         VStack(spacing: 10) {
@@ -34,23 +24,24 @@ struct LoginView: View {
                 .hAlign(.leading)
             
             VStack(spacing: 12) {
-                TextField("Email", text: $emailId)
+                TextField("Email", text: $viewModel.email)
                     .textContentType(.emailAddress)
                     .border(1, .gray.opacity(0.5))
                     .padding(.top, 25)
                 
-                SecureField("Password", text: $password)
+                SecureField("Password", text: $viewModel.password)
                     .textContentType(.emailAddress)
                     .border(1, .gray.opacity(0.5))
                 
-                Button("Reset Password", action: resetPassword)
+                Button("Reset Password", action: viewModel.resetPassword)
                     .font(.callout)
                     .fontWeight(.medium)
                     .tint(.black)
                     .hAlign(.trailing)
                 
                 Button {
-                    login()
+                    closeKeyboard()
+                    viewModel.login()
                 } label: {
                     Text("Sing in")
                         .foregroundStyle(.white)
@@ -65,7 +56,7 @@ struct LoginView: View {
                     .foregroundStyle(.gray)
                 
                 Button("Register now") {
-                    createAccount.toggle()
+                    viewModel.shouldShowRegisterView.toggle()
                 }
                 .fontWeight(.bold)
                 .foregroundStyle(.black)
@@ -76,115 +67,15 @@ struct LoginView: View {
         .vAlign(.top)
         .padding(15)
         .overlay(content: {
-            LoadingView(shouldShowLoading: $shoulShowLoading)
+            LoadingView(shouldShowLoading: $viewModel.shouldShowLoading)
         })
-        .fullScreenCover(isPresented: $createAccount) {
+        .fullScreenCover(isPresented: $viewModel.shouldShowRegisterView) {
             RegisterView()
         }
-        .alert(errorMessage, isPresented: $showError) {
-            
-        }
-    }
-    
-    func login() {
-        closeKeyboard()
-        
-        shoulShowLoading = true
-        
-        Task {
-            do {
-                try await Auth.auth().signIn(withEmail: emailId, password: password)
-                try await fetchUser()
-            } catch {
-                await setError(error)
-            }
-        }
-    }
-    
-    func fetchUser() async throws {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        
-        let user = try await Firestore.firestore().collection("Users").document(userID).getDocument(as: User.self)
-        
-        await MainActor.run {
-            shoulShowLoading = false
-            userUID = userID
-            usernameStored = user.username
-            userProfileURL = user.userProfileURL
-            logStatus = true
-        }
-    }
-    
-    func resetPassword() {
-        shoulShowLoading = true
-        
-        Task {
-            do {
-                try await Auth.auth().sendPasswordReset(withEmail: emailId)
-            } catch {
-                await setError(error)
-            }
-        }
-
-    }
-    
-    func setError(_ error: Error) async {
-        shoulShowLoading = false
-        
-        await MainActor.run {
-            errorMessage = error.localizedDescription
-            
-            showError.toggle()
-        }
+        .alert(viewModel.alertMessage, isPresented: $viewModel.shouldShowError) {}
     }
 }
 
 #Preview {
     LoginView()
-}
-
-extension View {
-    
-    func hAlign(_ alignment: Alignment) -> some View {
-        self
-            .frame(maxWidth: .infinity, alignment: alignment)
-    }
-    
-    func vAlign(_ alignment: Alignment) -> some View {
-        self
-            .frame(maxHeight: .infinity, alignment: alignment)
-    }
-    
-    func border(_ width: CGFloat, _ color: Color) -> some View {
-        self
-            .padding(.horizontal, 15)
-            .padding(.vertical, 10)
-            .background {
-                RoundedRectangle(cornerRadius: 5, style: .continuous)
-                    .stroke(color, lineWidth: width)
-            }
-    }
-    
-    func fillView(color: Color) -> some View {
-        self
-            .padding(.horizontal, 15)
-            .padding(.vertical, 10)
-            .background {
-                RoundedRectangle(cornerRadius: 5, style: .continuous)
-                    .fill(color)
-            }
-    }
-    
-    func disableWithOpacity(_ isDisabled: Bool) -> some View {
-        self
-            .disabled(isDisabled)
-            .opacity(isDisabled ? 0.6 : 1)
-    }
-    
-    func closeKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
-                                        to: nil,
-                                        from: nil,
-                                        for: nil)
-    }
 }

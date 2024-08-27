@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8869A3C92C7900FC00CD0451 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8869A3C82C7900FC00CD0451 /* Localizable.xcstrings */; };
+		8869A3CC2C79289D00CD0451 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8869A3CB2C79289D00CD0451 /* View+Extensions.swift */; };
+		8869A3CF2C7929F900CD0451 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8869A3CE2C7929F900CD0451 /* LoginViewModel.swift */; };
+		8869A3D22C792C4200CD0451 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8869A3D12C792C4200CD0451 /* FirebaseService.swift */; };
 		88C5F8592C75456F006D3DFB /* SocialMediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C5F8582C75456F006D3DFB /* SocialMediaApp.swift */; };
 		88C5F85B2C75456F006D3DFB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C5F85A2C75456F006D3DFB /* ContentView.swift */; };
 		88C5F85D2C754571006D3DFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88C5F85C2C754571006D3DFB /* Assets.xcassets */; };
@@ -24,6 +27,9 @@
 
 /* Begin PBXFileReference section */
 		8869A3C82C7900FC00CD0451 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		8869A3CB2C79289D00CD0451 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		8869A3CE2C7929F900CD0451 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		8869A3D12C792C4200CD0451 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		88C5F8552C75456F006D3DFB /* SocialMedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialMedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88C5F8582C75456F006D3DFB /* SocialMediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaApp.swift; sourceTree = "<group>"; };
 		88C5F85A2C75456F006D3DFB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +63,30 @@
 				8869A3C82C7900FC00CD0451 /* Localizable.xcstrings */,
 			);
 			path = Localizable;
+			sourceTree = "<group>";
+		};
+		8869A3CA2C79287700CD0451 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8869A3CB2C79289D00CD0451 /* View+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8869A3CD2C7929E200CD0451 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8869A3CE2C7929F900CD0451 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8869A3D02C792C2F00CD0451 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8869A3D12C792C4200CD0451 /* FirebaseService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		88C5F84C2C75456F006D3DFB = {
@@ -120,6 +150,7 @@
 			children = (
 				88C5F86C2C754821006D3DFB /* Model */,
 				88C5F86D2C754825006D3DFB /* View */,
+				8869A3CD2C7929E200CD0451 /* ViewModel */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -159,6 +190,8 @@
 		88D6A0FC2C76A42F0060C99F /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8869A3D02C792C2F00CD0451 /* Services */,
+				8869A3CA2C79287700CD0451 /* Extensions */,
 				8869A3C72C78DF5900CD0451 /* Localizable */,
 				88D6A0FD2C76A4350060C99F /* Views */,
 			);
@@ -254,9 +287,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8869A3CC2C79289D00CD0451 /* View+Extensions.swift in Sources */,
 				88C5F86F2C754842006D3DFB /* LoginView.swift in Sources */,
 				88C5F8742C755B5F006D3DFB /* RegisterView.swift in Sources */,
 				88C5F85B2C75456F006D3DFB /* ContentView.swift in Sources */,
+				8869A3D22C792C4200CD0451 /* FirebaseService.swift in Sources */,
+				8869A3CF2C7929F900CD0451 /* LoginViewModel.swift in Sources */,
 				88C5F87C2C756424006D3DFB /* User.swift in Sources */,
 				88C5F8592C75456F006D3DFB /* SocialMediaApp.swift in Sources */,
 				88D6A0FF2C76A4450060C99F /* LoadingView.swift in Sources */,

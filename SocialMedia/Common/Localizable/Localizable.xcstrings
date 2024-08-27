@@ -61,11 +61,7 @@
         }
       }
     },
-    "Lets Register\nAccount" : {
-
-    },
     "Lets Register an\nAccount" : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
