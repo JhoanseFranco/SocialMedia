@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
     "About You" : {
       "localizations" : {
         "es" : {
@@ -63,6 +73,12 @@
     },
     "Lets Register an\nAccount" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lets Register an\nAccount"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -74,6 +90,12 @@
     "Lets Sign you in" : {
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lets Sign you in"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -122,6 +144,16 @@
         }
       }
     },
+    "Password reset email sent successfully!" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recuperación de contraseña enviada satisfactoriamente !"
+          }
+        }
+      }
+    },
     "Register now" : {
       "localizations" : {
         "es" : {
@@ -148,6 +180,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Iniciar sesión"
+          }
+        }
+      }
+    },
+    "User created successfully!" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuario creado satisfactoriamente !"
           }
         }
       }

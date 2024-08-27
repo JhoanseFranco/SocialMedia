@@ -5,14 +5,17 @@
 //  Created by jhoan sebastian franco cardona on 27/08/24.
 //
 
+import SwiftUI
+
 struct LoginStrings {
     
-    static let letsSignYou = "Lets Sign you in"
-    static let welcome = "Welcome back, \nYou have been missed"
-    static let email = "Email"
-    static let password = "Password"
-    static let resetPassword = "Reset Password"
-    static let signIn = "Sing in"
-    static let doNotHaveAnAccount = "Don't have an account ?"
-    static let resetPasswordSuccessMessage = "Password reset email sent successfully!"
+    static let letsSignYou = LocalizedStringKey("Lets Sign you in")
+    static let welcome = LocalizedStringKey("Welcome back, \nYou have been missed")
+    static let email = LocalizedStringKey("Email")
+    static let password = LocalizedStringKey("Password")
+    static let resetPassword = LocalizedStringKey("Reset Password")
+    static let signIn = LocalizedStringKey("Sing in")
+    static let doNotHaveAnAccount = LocalizedStringKey("Don't have an account ?")
+    static let resetPasswordSuccessMessage = LocalizedStringKey("Password reset email sent successfully!")
+    static let registerNow = LocalizedStringKey("Register now")
 }

@@ -14,7 +14,7 @@ final class LoginViewModel: ObservableObject {
     @Published var shouldShowLoading: Bool = false
     @Published var shouldShowError: Bool = false
     @Published var shouldShowRegisterView: Bool = false
-    @Published var alertMessage: String = ""
+    @Published var alertMessage: LocalizedStringKey = ""
     @Published var email: String = ""
     @Published var password: String = ""
     
@@ -59,7 +59,7 @@ extension LoginViewModel: FirebaseServiceDelegate {
     
     func didFailSignIn(message: String) async {
         shouldShowLoading = false
-        alertMessage = message
+        alertMessage = LocalizedStringKey(message)
         
         shouldShowError.toggle()
     }
@@ -73,7 +73,7 @@ extension LoginViewModel: FirebaseServiceDelegate {
     
     func didFailResetingPassword(message: String) async {
         shouldShowLoading = false
-        alertMessage = message
+        alertMessage = LocalizedStringKey(message)
         
         shouldShowError.toggle()
     }

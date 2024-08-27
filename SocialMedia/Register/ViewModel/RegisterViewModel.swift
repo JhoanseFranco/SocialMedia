@@ -20,7 +20,7 @@ final class RegisterViewModel: ObservableObject {
     @Published var shouldShowImagePicker: Bool = false
     @Published var photoItem: PhotosPickerItem?
     @Published var shouldShowLoading: Bool = false
-    @Published var alertMessage: String = ""
+    @Published var alertMessage: LocalizedStringKey = ""
     @Published var shouldShowAlert: Bool = false
     
     @AppStorage("usernameStored") var usernameStored: String = ""
@@ -103,7 +103,7 @@ extension RegisterViewModel: FirebaseServiceDelegate {
     
     func didFailCreatingUser(message: String) async {
         shouldShowLoading = false
-        alertMessage = message
+        alertMessage = LocalizedStringKey(message)
         
         shouldShowAlert.toggle()
     }

@@ -53,7 +53,7 @@ struct LoginView: View {
                 Text(LoginStrings.doNotHaveAnAccount)
                     .foregroundStyle(.gray)
                 
-                Button("Register now") {
+                Button(LoginStrings.registerNow) {
                     viewModel.shouldShowRegisterView.toggle()
                 }
                 .fontWeight(.bold)
