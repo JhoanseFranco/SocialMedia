@@ -13,25 +13,25 @@ struct LoginView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            Text("Lets Sing you in")
+            Text(LoginStrings.letsSignYou)
                 .font(.largeTitle.bold())
                 .hAlign(.leading)
             
-            Text("Welcome back, \nYou have been missed")
+            Text(LoginStrings.welcome)
                 .font(.title3)
                 .hAlign(.leading)
             
             VStack(spacing: 12) {
-                TextField("Email", text: $viewModel.email)
+                TextField(LoginStrings.email, text: $viewModel.email)
                     .textContentType(.emailAddress)
                     .border(1, .gray.opacity(0.5))
                     .padding(.top, 25)
                 
-                SecureField("Password", text: $viewModel.password)
+                SecureField(LoginStrings.password, text: $viewModel.password)
                     .textContentType(.emailAddress)
                     .border(1, .gray.opacity(0.5))
                 
-                Button("Reset Password", action: viewModel.resetPassword)
+                Button(LoginStrings.resetPassword, action: viewModel.resetPassword)
                     .font(.callout)
                     .fontWeight(.medium)
                     .tint(.black)
@@ -41,7 +41,7 @@ struct LoginView: View {
                     closeKeyboard()
                     viewModel.login()
                 } label: {
-                    Text("Sing in")
+                    Text(LoginStrings.signIn)
                         .foregroundStyle(.white)
                         .hAlign(.center)
                         .fillView(color: .black)
@@ -50,7 +50,7 @@ struct LoginView: View {
             }
             
             HStack {
-                Text("Don't have an account ?")
+                Text(LoginStrings.doNotHaveAnAccount)
                     .foregroundStyle(.gray)
                 
                 Button("Register now") {

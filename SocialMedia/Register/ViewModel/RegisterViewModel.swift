@@ -93,7 +93,7 @@ extension RegisterViewModel: FirebaseServiceDelegate {
     func didCreateUser(userUID: String,
                        userProfileURL: URL) {
         shouldShowLoading = false
-        alertMessage = "User created successfully!"
+        alertMessage = RegisterStrings.userCreateSuccessfullyMessage
         usernameStored = username
         self.userUID = userUID
         self.userProfileURL = userProfileURL

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		88674E2E2C7E260300A35B88 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88674E2D2C7E260300A35B88 /* RegisterViewModel.swift */; };
+		88674E312C7E5F8400A35B88 /* LoginStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88674E302C7E5F8400A35B88 /* LoginStrings.swift */; };
+		88674E342C7E611E00A35B88 /* RegisterStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88674E332C7E611E00A35B88 /* RegisterStrings.swift */; };
+		88674E372C7E642A00A35B88 /* CommonStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88674E362C7E642A00A35B88 /* CommonStrings.swift */; };
 		8869A3C92C7900FC00CD0451 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8869A3C82C7900FC00CD0451 /* Localizable.xcstrings */; };
 		8869A3CC2C79289D00CD0451 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8869A3CB2C79289D00CD0451 /* View+Extensions.swift */; };
 		8869A3CF2C7929F900CD0451 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8869A3CE2C7929F900CD0451 /* LoginViewModel.swift */; };
@@ -28,6 +31,9 @@
 
 /* Begin PBXFileReference section */
 		88674E2D2C7E260300A35B88 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		88674E302C7E5F8400A35B88 /* LoginStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStrings.swift; sourceTree = "<group>"; };
+		88674E332C7E611E00A35B88 /* RegisterStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStrings.swift; sourceTree = "<group>"; };
+		88674E362C7E642A00A35B88 /* CommonStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonStrings.swift; sourceTree = "<group>"; };
 		8869A3C82C7900FC00CD0451 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		8869A3CB2C79289D00CD0451 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		8869A3CE2C7929F900CD0451 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -65,6 +71,30 @@
 				88674E2D2C7E260300A35B88 /* RegisterViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		88674E2F2C7E5F6800A35B88 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				88674E302C7E5F8400A35B88 /* LoginStrings.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		88674E322C7E611100A35B88 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				88674E332C7E611E00A35B88 /* RegisterStrings.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		88674E352C7E641300A35B88 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				88674E362C7E642A00A35B88 /* CommonStrings.swift */,
+			);
+			path = Strings;
 			sourceTree = "<group>";
 		};
 		8869A3C72C78DF5900CD0451 /* Localizable */ = {
@@ -158,6 +188,7 @@
 		88C5F8702C755B35006D3DFB /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				88674E2F2C7E5F6800A35B88 /* Common */,
 				88C5F86C2C754821006D3DFB /* Model */,
 				88C5F86D2C754825006D3DFB /* View */,
 				8869A3CD2C7929E200CD0451 /* ViewModel */,
@@ -168,6 +199,7 @@
 		88C5F8712C755B3F006D3DFB /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				88674E322C7E611100A35B88 /* Common */,
 				88C5F87A2C756416006D3DFB /* Model */,
 				88C5F8722C755B48006D3DFB /* View */,
 				88674E2C2C7E25E200A35B88 /* ViewModel */,
@@ -201,6 +233,7 @@
 		88D6A0FC2C76A42F0060C99F /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				88674E352C7E641300A35B88 /* Strings */,
 				8869A3D02C792C2F00CD0451 /* Services */,
 				8869A3CA2C79287700CD0451 /* Extensions */,
 				8869A3C72C78DF5900CD0451 /* Localizable */,
@@ -301,9 +334,12 @@
 				8869A3CC2C79289D00CD0451 /* View+Extensions.swift in Sources */,
 				88674E2E2C7E260300A35B88 /* RegisterViewModel.swift in Sources */,
 				88C5F86F2C754842006D3DFB /* LoginView.swift in Sources */,
+				88674E342C7E611E00A35B88 /* RegisterStrings.swift in Sources */,
 				88C5F8742C755B5F006D3DFB /* RegisterView.swift in Sources */,
 				88C5F85B2C75456F006D3DFB /* ContentView.swift in Sources */,
+				88674E312C7E5F8400A35B88 /* LoginStrings.swift in Sources */,
 				8869A3D22C792C4200CD0451 /* FirebaseService.swift in Sources */,
+				88674E372C7E642A00A35B88 /* CommonStrings.swift in Sources */,
 				8869A3CF2C7929F900CD0451 /* LoginViewModel.swift in Sources */,
 				88C5F87C2C756424006D3DFB /* User.swift in Sources */,
 				88C5F8592C75456F006D3DFB /* SocialMediaApp.swift in Sources */,

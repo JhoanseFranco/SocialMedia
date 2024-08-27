@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PhotosUI
 
 struct RegisterView: View {
     
@@ -16,11 +15,11 @@ struct RegisterView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            Text("Lets Register an\nAccount")
+            Text(RegisterStrings.letsRegisterAccount)
                 .font(.largeTitle.bold())
                 .hAlign(.leading)
             
-            Text("Hello user, have a wonderful journey")
+            Text(RegisterStrings.helloUser)
                 .font(.title3)
                 .hAlign(.leading)
             
@@ -33,10 +32,10 @@ struct RegisterView: View {
             }
             
             HStack {
-                Text("Already have an account ?")
+                Text(RegisterStrings.alreadyHaveAnAccount)
                     .foregroundStyle(.gray)
                 
-                Button("Login now") {
+                Button(RegisterStrings.loginNow) {
                     dismiss()
                 }
                 .fontWeight(.bold)
@@ -60,8 +59,8 @@ struct RegisterView: View {
             }
         }
         .alert(viewModel.alertMessage, isPresented: $viewModel.shouldShowAlert) {
-            if viewModel.alertMessage == "User created successfully!" {
-                Button("OK") {
+            if viewModel.alertMessage == RegisterStrings.userCreateSuccessfullyMessage {
+                Button(CommonStrings.ok) {
                     viewModel.logStatus = true
                 }
             }
@@ -92,24 +91,24 @@ struct RegisterView: View {
                 viewModel.shouldShowImagePicker.toggle()
             }
             
-            TextField("User name", text: $viewModel.username)
+            TextField(RegisterStrings.username, text: $viewModel.username)
                 .border(1, .gray.opacity(0.5))
                 .padding(.top, 25)
             
-            TextField("Email", text: $viewModel.email)
+            TextField(RegisterStrings.email, text: $viewModel.email)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
             
-            TextField("About You", text: $viewModel.userBio, axis: .vertical)
+            TextField(RegisterStrings.aboutYou, text: $viewModel.userBio, axis: .vertical)
                 .frame(minHeight: 100, alignment: .top)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
             
-            TextField("Bio link (Optional)", text: $viewModel.userBioLink)
+            TextField(RegisterStrings.bioLink, text: $viewModel.userBioLink)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
             
-            SecureField("Password", text: $viewModel.password)
+            SecureField(RegisterStrings.password, text: $viewModel.password)
                 .textContentType(.emailAddress)
                 .border(1, .gray.opacity(0.5))
             
@@ -117,7 +116,7 @@ struct RegisterView: View {
                 closeKeyboard()
                 viewModel.register()
             } label: {
-                Text("Sing in")
+                Text(RegisterStrings.signIn)
                     .foregroundStyle(.white)
                     .hAlign(.center)
                     .fillView(color: .black)

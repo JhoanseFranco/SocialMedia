@@ -71,7 +71,8 @@
         }
       }
     },
-    "Lets Sing you in" : {
+    "Lets Sign you in" : {
+      "extractionState" : "manual",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -102,7 +103,14 @@
       }
     },
     "OK" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceptar"
+          }
+        }
+      }
     },
     "Password" : {
       "localizations" : {

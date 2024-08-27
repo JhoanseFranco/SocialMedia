@@ -66,7 +66,7 @@ extension LoginViewModel: FirebaseServiceDelegate {
     
     func didResetPassword() async {
         shouldShowLoading = false
-        alertMessage = "Password reset email sent successfully!"
+        alertMessage = LoginStrings.resetPasswordSuccessMessage
         
         shouldShowError.toggle()
     }
