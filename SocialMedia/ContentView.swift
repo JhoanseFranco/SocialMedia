@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @AppStorage("log_status") var logStatus: Bool = false
+    @AppStorage("should_be_logged") var shouldBeLogged: Bool = false
+    
     var body: some View {
-        if logStatus {
+        if shouldBeLogged {
             Text("Main view")
         } else {
             LoginView()

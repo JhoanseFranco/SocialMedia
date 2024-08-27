@@ -26,7 +26,7 @@ final class RegisterViewModel: ObservableObject {
     @AppStorage("usernameStored") var usernameStored: String = ""
     @AppStorage("user_UID") var userUID: String = ""
     @AppStorage("user_profile_url") var userProfileURL: URL?
-    @AppStorage("log_status") var logStatus: Bool = false
+    @AppStorage("should_be_logged") var shouldBeLogged: Bool = false
     
     lazy var firebaseService = FirebaseService(delegate: self)
     
@@ -107,12 +107,4 @@ extension RegisterViewModel: FirebaseServiceDelegate {
         
         shouldShowAlert.toggle()
     }
-}
-
-
-// MARK: Private methods
-
-private extension RegisterViewModel {
-    
-    
 }

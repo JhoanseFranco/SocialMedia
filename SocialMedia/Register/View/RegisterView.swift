@@ -61,7 +61,7 @@ struct RegisterView: View {
         .alert(viewModel.alertMessage, isPresented: $viewModel.shouldShowAlert) {
             if viewModel.alertMessage == RegisterStrings.userCreateSuccessfullyMessage {
                 Button(CommonStrings.ok) {
-                    viewModel.logStatus = true
+                    viewModel.shouldBeLogged = true
                 }
             }
         }

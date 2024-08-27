@@ -18,7 +18,7 @@ final class LoginViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     
-    @AppStorage("log_status") var logStatus: Bool = false
+    @AppStorage("should_be_logged") var shouldBeLogged: Bool = false
     @AppStorage("user_UID") var userUID: String = ""
     @AppStorage("usernameStored") var usernameStored: String = ""
     @AppStorage("user_profile_url") var profileImageURL: URL?
@@ -54,7 +54,7 @@ extension LoginViewModel: FirebaseServiceDelegate {
         self.usernameStored = usernameStored
         self.profileImageURL = profileImageURL
         shouldShowLoading = false
-        logStatus = true
+        shouldBeLogged = true
     }
     
     func didFailSignIn(message: String) async {
