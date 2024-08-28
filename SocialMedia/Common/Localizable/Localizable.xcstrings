@@ -134,9 +134,6 @@
         }
       }
     },
-    "Main view" : {
-      "extractionState" : "stale"
-    },
     "My Profile" : {
       "localizations" : {
         "es" : {

@@ -23,6 +23,7 @@ protocol FirebaseServiceProvider: AnyObject {
     
     func doLogout() async
     func deleteAccount() async
+    func fetchUser() async throws -> User?
 }
 
 protocol FirebaseServiceDelegate {
@@ -49,6 +50,10 @@ final class FirebaseService: FirebaseServiceProvider {
     
     public var delegate: FirebaseServiceDelegate?
     
+    private var userUID: String? {
+        Auth.auth().currentUser?.uid
+    }
+    
     init(delegate: FirebaseServiceDelegate? = nil) {
         self.delegate = delegate
     }
@@ -56,7 +61,17 @@ final class FirebaseService: FirebaseServiceProvider {
     func signIn(email: String, password: String) async {
         do {
             try await Auth.auth().signIn(withEmail: email, password: password)
-            try await fetchUser()
+            
+            let user = try await fetchUser()
+            
+            await MainActor.run {
+                guard let userUID,
+                      let user else { return }
+                
+                delegate?.didSignIn(userUID: userUID,
+                                    usernameStored: user.username,
+                                    profileImageURL: user.profileImageURL)
+            }
         } catch {
             await delegate?.didFailSignIn(message: error.localizedDescription)
         }
@@ -82,7 +97,7 @@ final class FirebaseService: FirebaseServiceProvider {
         do {
             try await Auth.auth().createUser(withEmail: email, password: password)
             
-            guard let userUID = Auth.auth().currentUser?.uid,
+            guard let userUID,
                   let imageData = userProfilePicData else { return }
             
             let storageRef = Storage.storage().reference().child("Profile_Images").child(userUID)
@@ -122,7 +137,7 @@ final class FirebaseService: FirebaseServiceProvider {
     func deleteAccount() async {
         Task {
             do {
-                guard let userUID = Auth.auth().currentUser?.uid else { return }
+                guard let userUID else { return }
                 
                 try await deleteProfileImageFromStorage(userUID: userUID)
                 try await deleteUserDocumentFromFirestore(userUID: userUID)
@@ -133,6 +148,14 @@ final class FirebaseService: FirebaseServiceProvider {
             }
         }
     }
+    
+    func fetchUser() async throws -> User? {
+        guard let userUID else { return nil }
+        
+        let user = try await Firestore.firestore().collection("Users").document(userUID).getDocument(as: User.self)
+        
+        return user
+    }
 }
 
 
@@ -140,18 +163,6 @@ final class FirebaseService: FirebaseServiceProvider {
 // MARK: - Private methods
 
 private extension FirebaseService {
-    
-    func fetchUser() async throws {
-        guard let userUID = Auth.auth().currentUser?.uid else { return }
-        
-        let user = try await Firestore.firestore().collection("Users").document(userUID).getDocument(as: User.self)
-        
-        await MainActor.run {
-            delegate?.didSignIn(userUID: userUID,
-                                usernameStored: user.username,
-                                profileImageURL: user.profileImageURL)
-        }
-    }
     
     func deleteProfileImageFromStorage(userUID: String) async throws {
         let reference = Storage.storage().reference().child("Profile_Images").child(userUID)

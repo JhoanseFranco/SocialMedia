@@ -34,6 +34,18 @@ final class ProfileViewModel: ObservableObject {
             await firebaseService.deleteAccount()
         }
     }
+    
+    func fetchUser() {
+        Task {
+            do {
+                user = try await firebaseService.fetchUser()
+            } catch {
+                alertMessage = LocalizedStringKey(error.localizedDescription)
+                
+                shouldShowError.toggle()
+            }
+        }
+    }
 }
 
 

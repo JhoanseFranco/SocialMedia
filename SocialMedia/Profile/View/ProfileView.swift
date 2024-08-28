@@ -13,8 +13,20 @@ struct ProfileView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                
+            VStack {
+                if let user = viewModel.user {
+                    ReusableProfileView(user: user)
+                        .refreshable {
+                            viewModel.fetchUser()
+                        }
+                } else {
+                    ProgressView()
+                }
+            }
+            .task {
+                if viewModel.user == nil {
+                    viewModel.fetchUser()
+                }
             }
             .navigationTitle(ProfileStrings.myProfile)
             .toolbar {
