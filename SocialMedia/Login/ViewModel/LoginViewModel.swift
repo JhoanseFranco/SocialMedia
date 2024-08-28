@@ -85,4 +85,20 @@ extension LoginViewModel: FirebaseServiceDelegate {
     func didFailCreatingUser(message: String) {
         // No-op
     }
+    
+    func didDoLogout() async {
+        // No-op
+    }
+    
+    func didFailDoingLogout(message: String) async {
+        // No-op
+    }
+    
+    func didDeleteAccount() async {
+        // No-op
+    }
+    
+    func didFailDeletingAccount(message: String) async {
+        // No-op
+    }
 }

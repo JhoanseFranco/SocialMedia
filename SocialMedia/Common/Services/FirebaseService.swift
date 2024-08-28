@@ -20,6 +20,9 @@ protocol FirebaseServiceProvider: AnyObject {
                     email: String,
                     password: String,
                     userProfilePicData: Data?) async
+    
+    func doLogout() async
+    func deleteAccount() async
 }
 
 protocol FirebaseServiceDelegate {
@@ -36,6 +39,10 @@ protocol FirebaseServiceDelegate {
                        userProfileURL: URL)
     
     func didFailCreatingUser(message: String) async
+    func didDoLogout() async
+    func didFailDoingLogout(message: String) async
+    func didDeleteAccount() async
+    func didFailDeletingAccount(message: String) async
 }
 
 final class FirebaseService: FirebaseServiceProvider {
@@ -102,6 +109,30 @@ final class FirebaseService: FirebaseServiceProvider {
             await delegate?.didFailCreatingUser(message: error.localizedDescription)
         }
     }
+    
+    func doLogout() async {
+        do {
+            try Auth.auth().signOut()
+            await delegate?.didDoLogout()
+        } catch {
+            await delegate?.didFailDoingLogout(message: error.localizedDescription)
+        }
+    }
+    
+    func deleteAccount() async {
+        Task {
+            do {
+                guard let userUID = Auth.auth().currentUser?.uid else { return }
+                
+                try await deleteProfileImageFromStorage(userUID: userUID)
+                try await deleteUserDocumentFromFirestore(userUID: userUID)
+                try await deleteUser()
+                await delegate?.didDeleteAccount()
+            } catch {
+                await delegate?.didFailDeletingAccount(message: error.localizedDescription)
+            }
+        }
+    }
 }
 
 
@@ -120,5 +151,21 @@ private extension FirebaseService {
                                 usernameStored: user.username,
                                 profileImageURL: user.profileImageURL)
         }
+    }
+    
+    func deleteProfileImageFromStorage(userUID: String) async throws {
+        let reference = Storage.storage().reference().child("Profile_Images").child(userUID)
+        
+        try await reference.delete()
+    }
+    
+    func deleteUserDocumentFromFirestore(userUID: String) async throws {
+        let reference = Firestore.firestore().collection("Users").document(userUID)
+        
+        try await reference.delete()
+    }
+    
+    func deleteUser() async throws {
+        try await Auth.auth().currentUser?.delete()
     }
 }

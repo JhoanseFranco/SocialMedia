@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         if shouldBeLogged {
-            Text("Main view")
+            MainTabView()
         } else {
             LoginView()
         }

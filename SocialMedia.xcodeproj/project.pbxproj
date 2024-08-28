@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		88171C112C7F8A9900EF56E9 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88171C102C7F8A9900EF56E9 /* MainTabView.swift */; };
+		88171C152C7F8B4300EF56E9 /* MainTabStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88171C142C7F8B4300EF56E9 /* MainTabStrings.swift */; };
+		88171C172C7F8D0300EF56E9 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88171C162C7F8D0300EF56E9 /* ProfileView.swift */; };
+		88171C192C7F8D4A00EF56E9 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88171C182C7F8D4A00EF56E9 /* ProfileViewModel.swift */; };
+		88171C202C7F8FBC00EF56E9 /* ProfileStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88171C1F2C7F8FBC00EF56E9 /* ProfileStrings.swift */; };
 		88674E2E2C7E260300A35B88 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88674E2D2C7E260300A35B88 /* RegisterViewModel.swift */; };
 		88674E312C7E5F8400A35B88 /* LoginStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88674E302C7E5F8400A35B88 /* LoginStrings.swift */; };
 		88674E342C7E611E00A35B88 /* RegisterStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88674E332C7E611E00A35B88 /* RegisterStrings.swift */; };
@@ -30,6 +35,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		88171C102C7F8A9900EF56E9 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		88171C142C7F8B4300EF56E9 /* MainTabStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabStrings.swift; sourceTree = "<group>"; };
+		88171C162C7F8D0300EF56E9 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		88171C182C7F8D4A00EF56E9 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		88171C1F2C7F8FBC00EF56E9 /* ProfileStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStrings.swift; sourceTree = "<group>"; };
 		88674E2D2C7E260300A35B88 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		88674E302C7E5F8400A35B88 /* LoginStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStrings.swift; sourceTree = "<group>"; };
 		88674E332C7E611E00A35B88 /* RegisterStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStrings.swift; sourceTree = "<group>"; };
@@ -65,6 +75,97 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		88171C0C2C7F8A6B00EF56E9 /* MainTab */ = {
+			isa = PBXGroup;
+			children = (
+				88171C122C7F8B2C00EF56E9 /* Common */,
+				88171C0F2C7F8A8E00EF56E9 /* Model */,
+				88171C0E2C7F8A8A00EF56E9 /* View */,
+				88171C0D2C7F8A7F00EF56E9 /* ViewModel */,
+			);
+			path = MainTab;
+			sourceTree = "<group>";
+		};
+		88171C0D2C7F8A7F00EF56E9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		88171C0E2C7F8A8A00EF56E9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				88171C102C7F8A9900EF56E9 /* MainTabView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		88171C0F2C7F8A8E00EF56E9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		88171C122C7F8B2C00EF56E9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				88171C132C7F8B3200EF56E9 /* Strings */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		88171C132C7F8B3200EF56E9 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				88171C142C7F8B4300EF56E9 /* MainTabStrings.swift */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		88171C1A2C7F8F8500EF56E9 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				88171C1D2C7F8FAF00EF56E9 /* Common */,
+				88171C1C2C7F8FA200EF56E9 /* View */,
+				88171C1B2C7F8F9D00EF56E9 /* ViewModel */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		88171C1B2C7F8F9D00EF56E9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				88171C182C7F8D4A00EF56E9 /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		88171C1C2C7F8FA200EF56E9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				88171C162C7F8D0300EF56E9 /* ProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		88171C1D2C7F8FAF00EF56E9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				88171C1E2C7F8FB200EF56E9 /* Strings */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		88171C1E2C7F8FB200EF56E9 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				88171C1F2C7F8FBC00EF56E9 /* ProfileStrings.swift */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
 		88674E2C2C7E25E200A35B88 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +251,8 @@
 			isa = PBXGroup;
 			children = (
 				88D6A0FC2C76A42F0060C99F /* Common */,
+				88171C0C2C7F8A6B00EF56E9 /* MainTab */,
+				88171C1A2C7F8F8500EF56E9 /* Profile */,
 				88C5F8712C755B3F006D3DFB /* Register */,
 				88C5F8702C755B35006D3DFB /* Login */,
 				88C5F8582C75456F006D3DFB /* SocialMediaApp.swift */,
@@ -332,15 +435,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				8869A3CC2C79289D00CD0451 /* View+Extensions.swift in Sources */,
+				88171C112C7F8A9900EF56E9 /* MainTabView.swift in Sources */,
 				88674E2E2C7E260300A35B88 /* RegisterViewModel.swift in Sources */,
+				88171C152C7F8B4300EF56E9 /* MainTabStrings.swift in Sources */,
 				88C5F86F2C754842006D3DFB /* LoginView.swift in Sources */,
 				88674E342C7E611E00A35B88 /* RegisterStrings.swift in Sources */,
 				88C5F8742C755B5F006D3DFB /* RegisterView.swift in Sources */,
 				88C5F85B2C75456F006D3DFB /* ContentView.swift in Sources */,
+				88171C172C7F8D0300EF56E9 /* ProfileView.swift in Sources */,
 				88674E312C7E5F8400A35B88 /* LoginStrings.swift in Sources */,
 				8869A3D22C792C4200CD0451 /* FirebaseService.swift in Sources */,
 				88674E372C7E642A00A35B88 /* CommonStrings.swift in Sources */,
+				88171C202C7F8FBC00EF56E9 /* ProfileStrings.swift in Sources */,
 				8869A3CF2C7929F900CD0451 /* LoginViewModel.swift in Sources */,
+				88171C192C7F8D4A00EF56E9 /* ProfileViewModel.swift in Sources */,
 				88C5F87C2C756424006D3DFB /* User.swift in Sources */,
 				88C5F8592C75456F006D3DFB /* SocialMediaApp.swift in Sources */,
 				88D6A0FF2C76A4450060C99F /* LoadingView.swift in Sources */,

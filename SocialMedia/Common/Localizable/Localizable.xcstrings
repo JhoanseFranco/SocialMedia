@@ -41,6 +41,16 @@
         }
       }
     },
+    "Delete Account" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar cuenta"
+          }
+        }
+      }
+    },
     "Don't have an account ?" : {
       "localizations" : {
         "es" : {
@@ -114,12 +124,25 @@
         }
       }
     },
-    "Main view" : {
+    "Logout" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vista principal"
+            "value" : "Cerrar sesión"
+          }
+        }
+      }
+    },
+    "Main view" : {
+      "extractionState" : "stale"
+    },
+    "My Profile" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mi perfil"
           }
         }
       }
@@ -150,6 +173,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recuperación de contraseña enviada satisfactoriamente !"
+          }
+        }
+      }
+    },
+    "Post's" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publicaciones"
+          }
+        }
+      }
+    },
+    "Profile" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perfil"
+          }
+        }
+      }
+    },
+    "Recent Post's" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publicaciones recientes"
           }
         }
       }

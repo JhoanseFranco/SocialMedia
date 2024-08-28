@@ -74,6 +74,7 @@ final class RegisterViewModel: ObservableObject {
 // MARK: FirebaseServiceDelegate conformance
 
 extension RegisterViewModel: FirebaseServiceDelegate {
+    
     func didSignIn(userUID: String, usernameStored: String, profileImageURL: URL) {
         // No-op
     }
@@ -106,5 +107,21 @@ extension RegisterViewModel: FirebaseServiceDelegate {
         alertMessage = LocalizedStringKey(message)
         
         shouldShowAlert.toggle()
+    }
+    
+    func didDoLogout() async {
+        // No-op
+    }
+    
+    func didFailDoingLogout(message: String) async {
+        // No-op
+    }
+    
+    func didDeleteAccount() async {
+        // No-op
+    }
+    
+    func didFailDeletingAccount(message: String) async {
+        // No-op
     }
 }
