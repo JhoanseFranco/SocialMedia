@@ -41,6 +41,16 @@
         }
       }
     },
+    "Cancel" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        }
+      }
+    },
     "Delete Account" : {
       "localizations" : {
         "es" : {
@@ -61,6 +71,16 @@
         }
       }
     },
+    "Done" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo"
+          }
+        }
+      }
+    },
     "Email" : {
       "localizations" : {
         "es" : {
@@ -77,6 +97,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hola usuario, que tengas un viaje maravilloso"
+          }
+        }
+      }
+    },
+    "Hello, World!" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
           }
         }
       }
@@ -184,6 +214,16 @@
         }
       }
     },
+    "Posts" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publicaciones"
+          }
+        }
+      }
+    },
     "Profile" : {
       "localizations" : {
         "es" : {
@@ -195,6 +235,7 @@
       }
     },
     "Recent Post's" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -260,6 +301,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bienvenido de nuevo,\nTe hemos extrañado"
+          }
+        }
+      }
+    },
+    "What's happening" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Que está pasando"
           }
         }
       }

@@ -24,6 +24,12 @@ protocol FirebaseServiceProvider: AnyObject {
     func doLogout() async
     func deleteAccount() async
     func fetchUser() async throws -> User?
+    
+    func createPost(username: String,
+                    postText: String,
+                    profileImageURL: URL,
+                    imageReferenceID: String,
+                    postImageData: Data?) async
 }
 
 protocol FirebaseServiceDelegate {
@@ -44,6 +50,8 @@ protocol FirebaseServiceDelegate {
     func didFailDoingLogout(message: String) async
     func didDeleteAccount() async
     func didFailDeletingAccount(message: String) async
+    func didCreatePost(_ post: Post)
+    func didFailCreatingPost(message: String) async
 }
 
 final class FirebaseService: FirebaseServiceProvider {
@@ -156,8 +164,50 @@ final class FirebaseService: FirebaseServiceProvider {
         
         return user
     }
+    
+    func createPost(username: String,
+                    postText: String,
+                    profileImageURL: URL,
+                    imageReferenceID: String,
+                    postImageData: Data?) async {
+        do {
+            guard let userUID else { return }
+            
+            let storageRef = Storage.storage().reference().child("Post_Images").child(imageReferenceID)
+            
+            if let postImageData {
+                let _ = try await storageRef.putDataAsync(postImageData)
+                let downloadURL = try await storageRef.downloadURL()
+                
+                let post = Post(text: postText,
+                                imageURL: downloadURL,
+                                imageReferenceId: imageReferenceID,
+                                PublishedDate: Date(),
+                                linkedIds: [],
+                                dislikedIds: [],
+                                username: username,
+                                userUID: userUID,
+                                profileImageURL: profileImageURL)
+                
+                try await createDocumentAtFirebase(post)
+            } else {
+                let post = Post(text: postText,
+                                imageURL: nil,
+                                imageReferenceId: imageReferenceID,
+                                PublishedDate: Date(),
+                                linkedIds: [],
+                                dislikedIds: [],
+                                username: username,
+                                userUID: userUID,
+                                profileImageURL: profileImageURL)
+                
+                try await createDocumentAtFirebase(post)
+            }
+        } catch {
+            await delegate?.didFailCreatingPost(message: error.localizedDescription)
+        }
+    }
 }
-
 
 
 // MARK: - Private methods
@@ -178,5 +228,13 @@ private extension FirebaseService {
     
     func deleteUser() async throws {
         try await Auth.auth().currentUser?.delete()
+    }
+    
+    func createDocumentAtFirebase(_ post: Post) async throws {
+        let _ = try Firestore.firestore().collection("Posts").addDocument(from: post) { [weak self] error in
+            if error == nil {
+                self?.delegate?.didCreatePost(post)
+            }
+        }
     }
 }

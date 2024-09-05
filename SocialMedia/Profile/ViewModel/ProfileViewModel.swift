@@ -100,4 +100,12 @@ extension ProfileViewModel: FirebaseServiceDelegate {
         
         shouldShowError.toggle()
     }
+    
+    func didCreatePost(_ post: Post) {
+        // No-op
+    }
+    
+    func didFailCreatingPost(message: String) async {
+        // No-op
+    }
 }

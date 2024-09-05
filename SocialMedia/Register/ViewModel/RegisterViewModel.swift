@@ -124,4 +124,12 @@ extension RegisterViewModel: FirebaseServiceDelegate {
     func didFailDeletingAccount(message: String) async {
         // No-op
     }
+    
+    func didCreatePost(_ post: Post) {
+        // No-op
+    }
+    
+    func didFailCreatingPost(message: String) async {
+        // No-op
+    }
 }
