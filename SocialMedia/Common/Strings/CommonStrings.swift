@@ -12,4 +12,5 @@ struct CommonStrings {
     static let ok = LocalizedStringKey("OK")
     static let cancel = LocalizedStringKey("Cancel")
     static let done = LocalizedStringKey("Done")
+    static let error = LocalizedStringKey("Error:")
 }

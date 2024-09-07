@@ -30,6 +30,18 @@ protocol FirebaseServiceProvider: AnyObject {
                     profileImageURL: URL,
                     imageReferenceID: String,
                     postImageData: Data?) async
+    
+    func fetchPosts() async
+    
+    func updateLikedData(post: Post, 
+                         userUID: String,
+                         interactionType: Interaction)
+    
+    func addSnapshotListener(postID: String,
+                             onUpdate: @escaping (Post) -> Void,
+                             onDelete: @escaping () -> ()) -> ListenerRegistration
+    
+    func deletePost(_ post: Post) async
 }
 
 protocol FirebaseServiceDelegate {
@@ -52,6 +64,8 @@ protocol FirebaseServiceDelegate {
     func didFailDeletingAccount(message: String) async
     func didCreatePost(_ post: Post)
     func didFailCreatingPost(message: String) async
+    func didFetchPosts(_ fetchedPosts: [Post])
+    func didFailFetchingPosts(message: String) async
 }
 
 final class FirebaseService: FirebaseServiceProvider {
@@ -182,9 +196,6 @@ final class FirebaseService: FirebaseServiceProvider {
                 let post = Post(text: postText,
                                 imageURL: downloadURL,
                                 imageReferenceId: imageReferenceID,
-                                PublishedDate: Date(),
-                                linkedIds: [],
-                                dislikedIds: [],
                                 username: username,
                                 userUID: userUID,
                                 profileImageURL: profileImageURL)
@@ -192,11 +203,6 @@ final class FirebaseService: FirebaseServiceProvider {
                 try await createDocumentAtFirebase(post)
             } else {
                 let post = Post(text: postText,
-                                imageURL: nil,
-                                imageReferenceId: imageReferenceID,
-                                PublishedDate: Date(),
-                                linkedIds: [],
-                                dislikedIds: [],
                                 username: username,
                                 userUID: userUID,
                                 profileImageURL: profileImageURL)
@@ -205,6 +211,77 @@ final class FirebaseService: FirebaseServiceProvider {
             }
         } catch {
             await delegate?.didFailCreatingPost(message: error.localizedDescription)
+        }
+    }
+    
+    func fetchPosts() async {
+        do {
+            let query: Query = Firestore.firestore().collection("Posts")
+                .order(by:"publishedDate", descending: true)
+                .limit(to: 20)
+            
+            let docs = try await query.getDocuments()
+            let fetchedPosts = docs.documents.compactMap { doc -> Post? in
+                try? doc.data(as: Post.self)
+            }
+            
+            await MainActor.run {
+                delegate?.didFetchPosts(fetchedPosts)
+            }
+        } catch {
+            await delegate?.didFailFetchingPosts(message: error.localizedDescription)
+        }
+    }
+    
+    func updateLikedData(post: Post,
+                         userUID: String,
+                         interactionType: Interaction) {
+        guard let id = post.id else { return }
+        
+        if interactionType == .like {
+            if post.likedIds.contains(userUID) {
+                Firestore.firestore().collection("Posts").document(id).updateData(["likedIds": FieldValue.arrayRemove([userUID])])
+            } else {
+                Firestore.firestore().collection("Posts").document(id).updateData(["likedIds": FieldValue.arrayUnion([userUID]),
+                                                                                   "dislikedIds": FieldValue.arrayRemove([userUID])])
+            }
+        } else {
+            if post.dislikedIds.contains(userUID) {
+                Firestore.firestore().collection("Posts").document(id).updateData(["dislikedIds": FieldValue.arrayRemove([userUID])])
+            } else {
+                Firestore.firestore().collection("Posts").document(id).updateData(["dislikedIds": FieldValue.arrayUnion([userUID]),
+                                                                                   "likedIds": FieldValue.arrayRemove([userUID])])
+            }
+        }
+    }
+    
+    func addSnapshotListener(postID: String,
+                             onUpdate: @escaping (Post) -> Void,
+                             onDelete: @escaping () -> ()) -> ListenerRegistration {
+        Firestore.firestore().collection("Posts").document(postID).addSnapshotListener({ snapshot, error in
+            if let snapshot {
+                if snapshot.exists {
+                    if let updatedPost = try? snapshot.data(as: Post.self) {
+                        onUpdate(updatedPost)
+                    }
+                } else {
+                    onDelete()
+                }
+            }
+        })
+    }
+    
+    func deletePost(_ post: Post) async {
+        do {
+            if !post.imageReferenceId.isEmpty {
+                try await Storage.storage().reference().child("Post_Images").child(post.imageReferenceId).delete()
+            }
+            
+            if let postId = post.id {
+                try await Firestore.firestore().collection("Posts").document(postId).delete()
+            }
+        } catch {
+            print("\(CommonStrings.error) \(error.localizedDescription)")
         }
     }
 }
@@ -231,9 +308,15 @@ private extension FirebaseService {
     }
     
     func createDocumentAtFirebase(_ post: Post) async throws {
-        let _ = try Firestore.firestore().collection("Posts").addDocument(from: post) { [weak self] error in
+        let doc = Firestore.firestore().collection("Posts").document()
+        
+        let _ = try doc.setData(from: post) { [weak self] error in
             if error == nil {
-                self?.delegate?.didCreatePost(post)
+                var updatedPost = post
+                
+                updatedPost.id = doc.documentID
+                
+                self?.delegate?.didCreatePost(updatedPost)
             }
         }
     }

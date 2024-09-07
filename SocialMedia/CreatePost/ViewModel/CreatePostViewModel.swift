@@ -13,7 +13,7 @@ final class CreatePostViewModel: ObservableObject {
     
     private lazy var firebaseService: FirebaseServiceProvider = FirebaseService(delegate: self)
     
-    private var onPost: ((Post) -> Void)?
+    var post: Post?
     
     @Published var postText: String = ""
     @Published var postImageData: Data?
@@ -23,12 +23,11 @@ final class CreatePostViewModel: ObservableObject {
     @Published var shouldShowImagePicker: Bool = false
     @Published var photoItem: PhotosPickerItem?
     @Published var shouldDismiss: Bool = false
+    @Published var shouldShowKeyboard: Bool = false
     
     @AppStorage("user_UID") var userUID: String = ""
     @AppStorage("usernameStored") var usernameStored: String = ""
     @AppStorage("user_profile_url") var profileImageURL: URL?
-    
-    @FocusState var shouldShowKeyboard: Bool
     
     func createPost() {
         shouldShowKeyboard = false
@@ -95,8 +94,8 @@ extension CreatePostViewModel: FirebaseServiceDelegate {
     }
     
     func didCreatePost(_ post: Post) {
+        self.post = post
         shouldShowLoading = false
-        onPost?(post)
         shouldDismiss = true
     }
     
@@ -105,5 +104,13 @@ extension CreatePostViewModel: FirebaseServiceDelegate {
         alertMessage = LocalizedStringKey(message)
         
         shouldShowAlerMessage.toggle()
+    }
+    
+    func didFetchPosts(_ fetchedPosts: [Post]) {
+        // No-op
+    }
+    
+    func didFailFetchingPosts(message: String) async {
+        // No-op
     }
 }

@@ -109,4 +109,12 @@ extension LoginViewModel: FirebaseServiceDelegate {
     func didFailCreatingPost(message: String) async {
         // No-op
     }
+    
+    func didFetchPosts(_ fetchedPosts: [Post]) {
+        // No-op
+    }
+    
+    func didFailFetchingPosts(message: String) async {
+        // No-op
+    }
 }

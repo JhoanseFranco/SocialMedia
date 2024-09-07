@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
-//import PhotosUI
 
 struct CreatePostView: View {
+    
+    let onPost: ((Post) -> Void)
     
     @StateObject private var viewModel = CreatePostViewModel()
     
     @Environment(\.dismiss) private var dismiss
+    
+    @FocusState var shouldShowKeyboard: Bool
     
     var body: some View {
         VStack {
@@ -49,7 +52,7 @@ struct CreatePostView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 15) {
                     TextField(CreatePostStrings.whatsHappening, text: $viewModel.postText)
-                        .focused(viewModel.$shouldShowKeyboard)
+                        .focused($shouldShowKeyboard)
                     
                     if let imageData = viewModel.postImageData,
                        let image = UIImage(data: imageData) {
@@ -121,12 +124,19 @@ struct CreatePostView: View {
         }
         .onChange(of: viewModel.shouldDismiss) { _, newValue in
             if newValue {
+                if let post = viewModel.post {
+                    onPost(post)
+                }
+                
                 dismiss()
             }
+        }
+        .onReceive(viewModel.$shouldShowKeyboard) { shouldShowKeyboard in
+            self.shouldShowKeyboard = shouldShowKeyboard
         }
     }
 }
 
 #Preview {
-    CreatePostView()
+    CreatePostView(onPost: { _ in })
 }

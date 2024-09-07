@@ -11,6 +11,16 @@
         }
       }
     },
+    "%lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
     "About You" : {
       "localizations" : {
         "es" : {
@@ -61,6 +71,16 @@
         }
       }
     },
+    "Delete Post" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar publicación"
+          }
+        }
+      }
+    },
     "Don't have an account ?" : {
       "localizations" : {
         "es" : {
@@ -91,6 +111,16 @@
         }
       }
     },
+    "Error:" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "error"
+          }
+        }
+      }
+    },
     "Hello user, have a wonderful journey" : {
       "localizations" : {
         "es" : {
@@ -102,6 +132,7 @@
       }
     },
     "Hello, World!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -210,6 +241,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Publicaciones"
+          }
+        }
+      }
+    },
+    "Post's not found" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publicaciones no encontradas"
           }
         }
       }
